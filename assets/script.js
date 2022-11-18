@@ -1,58 +1,95 @@
 let startQuizbtn = document.querySelector("#startQuiz");
 let divQuest = document.querySelector("#questions");
 let questions = [
-  { title: "question1", choices: ["a", "b", "c", "d"], answer: "a" },
-  { title: "question2", choices: ["a", "b", "c", "d"], answer: "a" },
-  { title: "question3", choices: ["a", "b", "c", "d"], answer: "a" },
-  { title: "question4", choices: ["a", "b", "c", "d"], answer: "a" },
+  { title: "INSIDE WHAT HTML ELEMENT DO WE PUT JAVASCRIPT?", choices: ["SCRIPT", "JAVA", "BODY", "DIV"], answer: "SCRIPT" },
+  { title: "WHERE IS THE CORRECT PLACE TO PUT JAVASCRIPT IN HTML?", choices: ["FOOTER", "HEADER", "BODY", "WHEREVER'S CLEVER"], answer: "BODY" },
+  { title: "WHICH OF THE FOLOWING REPRESENTS LOOPS IN JAVASCRIPT?", choices: ["FOR", "LOOP", "HENCE", "ELSA"], answer: "FOR" },
+  { title: "WHICH METHOD IS USED TO INSERT A NEW ELEMENT AT THE END OF AN ARRAY?", choices: ["PULL", "PUSH", "TOW", "NONE OF THE ABOVE"], answer: "PUSH" },
 ];
+let questionsIndex = 1;
+
+let timeLeft = 30
+let elem = document.getElementById('timer');
+let timerId = setInterval(countdown, 1000);
+
+function countdown() {
+    if (timeLeft == -1) {
+        clearTimeout(timerId);
+        alert("Time's Up");
+    } else {
+        elem.innerHTML = timeLeft + 'seconds remaining';
+        timeLeft--;
+    }
+}
 
 function startQuiz() {
-    alert('Start Quiz?');
-    
+  // divResults.innerHTML = "";
+
+  createBtns(0);
+
+
+
+  //make clickable
+  // function startTimer() {
+  //     timer = setInterval(function() {
+  //         countDown --;
+  //         timerElement.textContent = countDown;
+  //         if (countDown <= 45) {
+  //             timerElement.style.color = "black";
+  //             timerElement.style.fontSize = "5rem";
+  //         }
+  //         if (countDown === 0) {
+  //             clearInterval(timer);
+  //             gameOver();
+  //         }
+  //     }, 1000);
+  // }
+}
+function createBtns(index) {
+  //   divQuest.innerHTML = "";
+
   let title = document.createElement("h2");
-  title.textContent = questions[0].title;
+  title.textContent = questions[index].title;
   divQuest.appendChild(title);
 
   let btnOne = document.createElement("button");
-  btnOne.textContent = questions[0].choices[0];
-  btnOne.dataset.answer = questions[0].answer;
+  btnOne.textContent = questions[index].choices[0];
+  btnOne.dataset.answer = questions[index].answer;
   divQuest.appendChild(btnOne);
 
   let btnTwo = document.createElement("button");
-  btnTwo.textContent = questions[0].choices[1];
-  btnTwo.dataset.answer = questions[0].answer;
+  btnTwo.textContent = questions[index].choices[1];
+  btnTwo.dataset.answer = questions[index].answer;
   divQuest.appendChild(btnTwo);
 
   let btnThree = document.createElement("button");
-  btnThree.textContent = questions[0].choices[2];
-  btnThree.dataset.answer = questions[0].answer;
+  btnThree.textContent = questions[index].choices[2];
+  btnThree.dataset.answer = questions[index].answer;
   divQuest.appendChild(btnThree);
 
   let btnFour = document.createElement("button");
-  btnFour.textContent = questions[0].choices[3];
-  btnFour.dataset.answer = questions[0].answer;
+  btnFour.textContent = questions[index].choices[3];
+  btnFour.dataset.answer = questions[index].answer;
   divQuest.appendChild(btnFour);
-
-  //make clickable
 }
-
 startQuizbtn.addEventListener("click", startQuiz);
 
 divQuest.addEventListener("click", function (event) {
-  console.log(event);
-  console.log(event.target);
+  // console.log(event);
+  // console.log(event.target);
   let choice = event.target.innerHTML;
   let answer = event.target.dataset.answer;
+
   if (choice === answer) {
-    alert("correct");
-  } else {
-    alert("incorrect");
+    createBtns(questionsIndex);
+    // if (questionsIndex < quest)
+    questionsIndex++;
   }
+
   //if (choices === answer) {
 });
 
-// This is the same as above
+//  This is the same as above
 /*
 divQuest.addEventListener('click', check);
 
@@ -88,8 +125,6 @@ function check() {
 //
 
 // Q) How does the game end(?)
-
-
 
 /* GIVEN I am taking a code quiz
 WHEN I click the start button
